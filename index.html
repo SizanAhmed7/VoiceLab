@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VoiceLab — AI Audio Editor</title>
+  <title>VoiceLab — Free AI Audio Editor</title>
   <style>
     * {
       box-sizing: border-box;
@@ -42,7 +42,6 @@
       --radius-sm: 4px;
     }
 
-    /* Scrollbar */
     ::-webkit-scrollbar {
       width: 5px;
       height: 5px;
@@ -55,7 +54,6 @@
       border-radius: 4px;
     }
 
-    /* Top bar */
     .topbar {
       display: flex;
       align-items: center;
@@ -82,6 +80,15 @@
       border-radius: 50%;
       background: var(--accent);
       box-shadow: 0 0 8px var(--accent-glow);
+    }
+    .logo-free {
+      font-size: 9px;
+      background: var(--green);
+      color: #000;
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-weight: 700;
+      margin-left: 4px;
     }
 
     .topbar-center {
@@ -135,18 +142,22 @@
       padding: 4px 10px;
       font-size: 11px;
     }
-    .btn-icon {
-      padding: 6px;
+    .btn-free {
+      border-color: var(--green);
+      color: var(--green);
+    }
+    .btn-free:hover {
+      background: var(--green);
+      color: #000;
+      border-color: var(--green);
     }
 
-    /* Main layout */
     .main {
       display: flex;
       flex: 1;
       overflow: hidden;
     }
 
-    /* Sidebar */
     .sidebar {
       width: 240px;
       background: var(--surface);
@@ -255,7 +266,6 @@
       background: var(--accent-dim);
     }
 
-    /* Center */
     .center {
       flex: 1;
       display: flex;
@@ -264,7 +274,6 @@
       min-width: 0;
     }
 
-    /* Waveform area */
     .waveform-area {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
@@ -319,7 +328,6 @@
       pointer-events: none;
     }
 
-    /* Transport */
     .transport {
       display: flex;
       align-items: center;
@@ -409,7 +417,6 @@
       color: var(--accent);
     }
 
-    /* Tabs */
     .tabs {
       display: flex;
       border-bottom: 1px solid var(--border);
@@ -446,7 +453,6 @@
       font-weight: 600;
     }
 
-    /* Panels */
     .panel-area {
       flex: 1;
       overflow: hidden;
@@ -463,7 +469,6 @@
       display: block;
     }
 
-    /* Transcript editor */
     .transcript-editor {
       font-size: 14px;
       line-height: 1.9;
@@ -494,7 +499,6 @@
       color: var(--amber);
     }
 
-    /* AI chat */
     .ai-prompt-wrap {
       position: sticky;
       bottom: 0;
@@ -626,8 +630,13 @@
       background: var(--accent);
       color: #fff;
     }
+    .chip.free-badge {
+      border-color: var(--green);
+      color: var(--green);
+      font-size: 8px;
+      padding: 1px 6px;
+    }
 
-    /* Edit toolbar */
     .edit-toolbar {
       display: flex;
       flex-wrap: wrap;
@@ -649,7 +658,6 @@
       padding: 0 4px;
     }
 
-    /* Enhance */
     .enhance-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -708,7 +716,6 @@
       color: var(--accent);
     }
 
-    /* Splice timeline */
     .splice-track {
       background: var(--surface2);
       border: 1px solid var(--border);
@@ -740,7 +747,6 @@
       filter: brightness(1.2);
     }
 
-    /* Status bar */
     .statusbar {
       height: 24px;
       background: var(--surface);
@@ -794,7 +800,6 @@
       }
     }
 
-    /* Toast */
     .toast-container {
       position: fixed;
       bottom: 36px;
@@ -836,7 +841,6 @@
       }
     }
 
-    /* Modal */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -887,7 +891,6 @@
       justify-content: flex-end;
     }
 
-    /* Responsive */
     @media (max-width: 768px) {
       .sidebar {
         width: 180px;
@@ -903,33 +906,40 @@
 </head>
 <body>
 
-  <!-- API Key Modal -->
+  <!-- API Key Modal (now for Groq) -->
   <div class="modal-overlay" id="apiModal">
     <div class="modal">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
         <div class="logo-dot"></div>
-        <span style="font-size:13px;font-weight:600;color:var(--text-muted)">VoiceLab Setup</span>
+        <span style="font-size:13px;font-weight:600;color:var(--text-muted)">VoiceLab Free AI Setup</span>
       </div>
-      <h2>Connect your API key</h2>
-      <p>VoiceLab uses Claude to understand audio commands, transcribe speech, and intelligently edit your clips. Your key is stored locally in this browser.</p>
-      <input class="modal-input" type="password" id="apiKeyInput" placeholder="sk-ant-api03-..." />
+      <h2>Get your FREE Groq API key</h2>
+      <p>VoiceLab uses <strong>Groq</strong> (completely free) to understand audio commands, transcribe speech, and intelligently edit your clips. Your key is stored locally.</p>
+      <div style="background:var(--accent-dim);padding:10px;border-radius:var(--radius);margin-bottom:16px;font-size:12px;color:var(--text-dim)">
+        🆓 <strong>Free tier:</strong> 30 requests/min · No credit card required
+      </div>
+      <input class="modal-input" type="password" id="apiKeyInput" placeholder="gsk_..." />
       <div style="font-size:11px;color:var(--text-muted);margin-bottom:16px">
-        Get your key at <a href="https://console.anthropic.com" target="_blank" style="color:var(--accent)">console.anthropic.com</a>
+        Get your free key at <a href="https://console.groq.com" target="_blank" style="color:var(--accent)">console.groq.com</a> (sign up, it's free!)
       </div>
       <div class="modal-footer">
         <button class="btn" id="skipApiBtn">Skip for now</button>
-        <button class="btn btn-accent" id="saveApiBtn">Connect →</button>
+        <button class="btn btn-accent" id="saveApiBtn">Connect Free AI →</button>
       </div>
     </div>
   </div>
 
   <!-- Top Bar -->
   <div class="topbar">
-    <div class="logo"><div class="logo-dot"></div>VoiceLab</div>
+    <div class="logo">
+      <div class="logo-dot"></div>
+      VoiceLab
+      <span class="logo-free">FREE</span>
+    </div>
     <div class="topbar-center"><span class="project-name" id="projectName">Untitled Project</span></div>
     <div class="topbar-right">
       <button class="btn btn-sm" id="exportBtn">⬇ Export</button>
-      <button class="btn btn-sm" id="apiSettingsBtn">⚙ API</button>
+      <button class="btn btn-sm btn-free" id="apiSettingsBtn">🔑 Free API</button>
     </div>
   </div>
 
@@ -990,7 +1000,7 @@
 
       <!-- Tabs -->
       <div class="tabs">
-        <div class="tab active" data-tab="ai">✦ AI Chat</div>
+        <div class="tab active" data-tab="ai">✦ AI Chat <span class="tab-badge" style="background:var(--green);color:#000">FREE</span></div>
         <div class="tab" data-tab="transcript">📝 Transcript <span class="tab-badge" id="transcriptBadge" style="display:none">NEW</span></div>
         <div class="tab" data-tab="splice">🔀 Splice & Blend</div>
         <div class="tab" data-tab="enhance">✨ Enhance</div>
@@ -1005,16 +1015,15 @@
               <div class="ai-msg">
                 <div class="ai-avatar">✦</div>
                 <div class="ai-bubble">
-                  <div style="font-weight:600;margin-bottom:6px;color:var(--text)">VoiceLab AI ready.</div>
-                  Upload audio clips and I'll help you edit them. Try:
+                  <div style="font-weight:600;margin-bottom:6px;color:var(--text)">VoiceLab Free AI ready. 🆓</div>
+                  Powered by <strong>Groq</strong> (Llama 3) — completely free! Upload audio and tell me what to do.
                   <div class="ai-action-chips" style="margin-top:8px">
                     <div class="chip" onclick="fillPrompt('Transcribe the loaded clip')">Transcribe</div>
                     <div class="chip" onclick="fillPrompt('Remove silence from the clip')">Remove silence</div>
                     <div class="chip" onclick="fillPrompt('Trim the first 3 seconds')">Trim start</div>
-                    <div class="chip" onclick="fillPrompt('Blend clip 1 and clip 2 with a 1 second crossfade')">Crossfade</div>
                     <div class="chip" onclick="fillPrompt('Normalize the audio volume')">Normalize</div>
                     <div class="chip" onclick="fillPrompt('Extract seconds 10 to 25')">Extract</div>
-                    <div class="chip" onclick="fillPrompt('Describe what you can do')">What can you do?</div>
+                    <div class="chip" onclick="fillPrompt('What can you do?')">Help</div>
                   </div>
                 </div>
               </div>
@@ -1023,7 +1032,7 @@
           <div class="ai-prompt-wrap">
             <div class="ai-input-wrap">
               <span class="ai-prefix">✦</span>
-              <textarea id="aiInput" rows="1" placeholder="Tell me what to do with the audio... (e.g. 'remove the last 5 seconds' or 'blend clip 1 and 2')"></textarea>
+              <textarea id="aiInput" rows="1" placeholder="Tell me what to do... (free AI - Groq)"></textarea>
             </div>
             <button class="ai-send-btn" id="aiSendBtn">↑</button>
           </div>
@@ -1041,7 +1050,7 @@
               <button class="btn btn-sm" id="copyTranscriptBtn">📋 Copy</button>
             </div>
           </div>
-          <div style="margin-bottom:8px;font-size:11px;color:var(--text-muted)">💡 Click words to jump. Delete words in the transcript to remove that audio. Bold = playing.</div>
+          <div style="margin-bottom:8px;font-size:11px;color:var(--text-muted)">💡 Click words to jump. Delete words to remove audio. Bold = playing.</div>
           <div class="transcript-editor" contenteditable="true" id="transcriptEditor" spellcheck="true"></div>
         </div>
 
@@ -1049,1132 +1058,4 @@
         <div class="panel" id="panel-splice">
           <div style="margin-bottom:16px">
             <div style="font-size:13px;font-weight:600;margin-bottom:4px">Multi-clip Timeline</div>
-            <div style="font-size:11px;color:var(--text-muted)">Drag clips from the sidebar to build a sequence. Crossfade between them.</div>
-          </div>
-          <div id="spliceTimeline">
-            <div style="color:var(--text-muted);font-size:12px;padding:20px;text-align:center;background:var(--surface2);border:1.5px dashed var(--border);border-radius:var(--radius)">Add clips from the sidebar to build your splice timeline</div>
-          </div>
-          <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
-            <button class="btn btn-sm" id="clearTimelineBtn">🗑 Clear Timeline</button>
-            <button class="btn btn-sm btn-accent" id="renderSpliceBtn">▶ Preview Splice</button>
-            <button class="btn btn-sm" id="exportSpliceBtn">⬇ Export Merged</button>
-          </div>
-          <div style="margin-top:20px;border-top:1px solid var(--border);padding-top:16px;">
-            <div style="font-size:12px;font-weight:600;margin-bottom:10px">Crossfade Settings</div>
-            <div class="knob-item">
-              <div class="knob-header"><span class="knob-label">Crossfade Duration</span><span class="knob-value" id="crossfadeVal">0.5s</span></div>
-              <input type="range" class="slider" style="width:100%" id="crossfadeSlider" min="0" max="3" step="0.1" value="0.5">
-            </div>
-            <div class="knob-item" style="margin-top:12px">
-              <div class="knob-header"><span class="knob-label">Blend Mode</span></div>
-              <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px">
-                <div class="chip" id="blendLinear" onclick="setBlend('linear')" style="background:var(--accent);color:#fff">Linear</div>
-                <div class="chip" id="blendEqualPower" onclick="setBlend('equal-power')">Equal Power</div>
-                <div class="chip" id="blendFade" onclick="setBlend('fade')">Fade</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Enhance -->
-        <div class="panel" id="panel-enhance">
-          <div style="font-size:12px;font-weight:600;margin-bottom:12px;color:var(--text-muted)">PRESETS</div>
-          <div class="enhance-grid" id="presetGrid">
-            <div class="enhance-card active" data-preset="clean" onclick="applyPreset(this,'clean')"><h4>🎙 Voice Clean</h4><p>Reduce noise, boost presence, light compression</p></div>
-            <div class="enhance-card" data-preset="warm" onclick="applyPreset(this,'warm')"><h4>🔥 Warm & Rich</h4><p>Low-end warmth, smooth highs</p></div>
-            <div class="enhance-card" data-preset="broadcast" onclick="applyPreset(this,'broadcast')"><h4>📻 Broadcast</h4><p>Radio-ready: tight mids, punchy presence</p></div>
-            <div class="enhance-card" data-preset="podcast" onclick="applyPreset(this,'podcast')"><h4>🎧 Podcast</h4><p>Balanced, intimate, noise gated</p></div>
-          </div>
-          <div style="margin-top:20px;border-top:1px solid var(--border);padding-top:16px;">
-            <div style="font-size:12px;font-weight:600;margin-bottom:12px;color:var(--text-muted)">MANUAL CONTROLS</div>
-            <div class="knob-row">
-              <div class="knob-item"><div class="knob-header"><span class="knob-label">Low-Cut (Hz)</span><span class="knob-value" id="lowCutVal">80 Hz</span></div><input type="range" class="slider" style="width:100%" id="lowCutSlider" min="20" max="400" value="80" oninput="document.getElementById('lowCutVal').textContent=this.value+' Hz';applyEQ()"></div>
-              <div class="knob-item"><div class="knob-header"><span class="knob-label">Presence (dB)</span><span class="knob-value" id="presenceVal">+3 dB</span></div><input type="range" class="slider" style="width:100%" id="presenceSlider" min="-12" max="12" value="3" oninput="document.getElementById('presenceVal').textContent=(this.value>0?'+':'')+this.value+' dB';applyEQ()"></div>
-              <div class="knob-item"><div class="knob-header"><span class="knob-label">High Shelf (dB)</span><span class="knob-value" id="highShelfVal">0 dB</span></div><input type="range" class="slider" style="width:100%" id="highShelfSlider" min="-12" max="12" value="0" oninput="document.getElementById('highShelfVal').textContent=(this.value>0?'+':'')+this.value+' dB';applyEQ()"></div>
-              <div class="knob-item"><div class="knob-header"><span class="knob-label">Compression</span><span class="knob-value" id="compVal">2:1</span></div><input type="range" class="slider" style="width:100%" id="compSlider" min="1" max="20" value="2" oninput="document.getElementById('compVal').textContent=this.value+':1';applyEQ()"></div>
-              <div class="knob-item"><div class="knob-header"><span class="knob-label">Output Gain</span><span class="knob-value" id="gainVal">0 dB</span></div><input type="range" class="slider" style="width:100%" id="gainSlider" min="-24" max="24" value="0" oninput="document.getElementById('gainVal').textContent=(this.value>0?'+':'')+this.value+' dB';applyEQ()"></div>
-            </div>
-            <div style="margin-top:16px;display:flex;gap:8px">
-              <button class="btn btn-sm btn-accent" id="applyEnhanceBtn">Apply to Audio</button>
-              <button class="btn btn-sm" id="resetEnhanceBtn">Reset</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Status Bar -->
-  <div class="statusbar">
-    <div class="status-item"><div class="status-dot" id="statusDot"></div><span id="statusText">Ready</span></div>
-    <div class="status-item" id="statusClips">0 clips</div>
-    <div class="status-item" id="statusDuration">—</div>
-    <div class="status-item" style="margin-left:auto" id="statusSampleRate">—</div>
-  </div>
-
-  <!-- Toast -->
-  <div class="toast-container" id="toastContainer"></div>
-
-  <script>
-    // ─────────────────────────────────────────────
-    // STATE
-    // ─────────────────────────────────────────────
-    const state = {
-      apiKey: localStorage.getItem('voicelab_api_key') || '',
-      clips: [],
-      activeClipId: null,
-      audioCtx: null,
-      sourceNode: null,
-      gainNode: null,
-      filterLow: null,
-      filterPres: null,
-      filterHigh: null,
-      compressor: null,
-      masterGain: null,
-      isPlaying: false,
-      currentTime: 0,
-      startedAt: 0,
-      pausedAt: 0,
-      playbackRate: 1,
-      volume: 1,
-      selStart: null,
-      selEnd: null,
-      isDragging: false,
-      dragStartX: 0,
-      transcript: [],
-      spliceTimeline: [],
-      blendMode: 'linear',
-      crossfadeDur: 0.5,
-      animFrame: null,
-      preset: 'clean',
-    };
-
-    // ─────────────────────────────────────────────
-    // INIT
-    // ─────────────────────────────────────────────
-    function init() {
-      // API modal
-      if (!state.apiKey) {
-        document.getElementById('apiModal').style.display = 'flex';
-      } else {
-        document.getElementById('apiModal').style.display = 'none';
-      }
-
-      document.getElementById('saveApiBtn').onclick = () => {
-        const key = document.getElementById('apiKeyInput').value.trim();
-        if (key) { state.apiKey = key; localStorage.setItem('voicelab_api_key', key);
-          document.getElementById('apiModal').style.display = 'none'; toast('API key saved ✓', 'success'); }
-        else toast('Enter a valid key', 'error');
-      };
-      document.getElementById('skipApiBtn').onclick = () => { document.getElementById('apiModal').style.display = 'none'; };
-      document.getElementById('apiSettingsBtn').onclick = () => {
-        document.getElementById('apiKeyInput').value = state.apiKey;
-        document.getElementById('apiModal').style.display = 'flex';
-      };
-
-      // Upload
-      const zone = document.getElementById('uploadZone');
-      const fileInput = document.getElementById('fileInput');
-      zone.onclick = () => fileInput.click();
-      fileInput.onchange = e => loadFiles([...e.target.files]);
-      zone.ondragover = e => { e.preventDefault(); zone.classList.add('drag-over'); };
-      zone.ondragleave = () => zone.classList.remove('drag-over');
-      zone.ondrop = e => { e.preventDefault(); zone.classList.remove('drag-over'); loadFiles([...e.dataTransfer.files]); };
-
-      // Tabs
-      document.querySelectorAll('.tab').forEach(t => {
-        t.onclick = () => {
-          document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
-          document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
-          t.classList.add('active');
-          const panel = document.getElementById('panel-' + t.dataset.tab);
-          if (panel) panel.classList.add('active');
-        };
-      });
-
-      // Waveform interaction
-      const wrap = document.getElementById('waveformWrap');
-      wrap.onmousedown = e => { state.isDragging = true; state.dragStartX = e.offsetX / wrap.offsetWidth;
-        updateSelection(e); };
-      wrap.onmousemove = e => { if (state.isDragging) updateSelection(e); };
-      window.onmouseup = e => { if (state.isDragging) { state.isDragging = false; finalizeSelection(); } };
-      wrap.onclick = e => { if (!state.isDragging) seekTo(e.offsetX / wrap.offsetWidth); };
-
-      // Transport
-      document.getElementById('playPauseBtn').onclick = togglePlay;
-      document.getElementById('skipBackBtn').onclick = () => { state.pausedAt = 0;
-        seekAbsolute(0); };
-      document.getElementById('skipEndBtn').onclick = () => { const buf = getActiveBuffer(); if (buf) seekAbsolute(buf
-          .duration); };
-      document.getElementById('rewindBtn').onclick = () => seekAbsolute(Math.max(0, state.currentTime - 5));
-      document.getElementById('ffwdBtn').onclick = () => { const buf = getActiveBuffer(); if (buf) seekAbsolute(Math.min(buf
-          .duration, state.currentTime + 5)); };
-      document.getElementById('volumeSlider').oninput = e => { state.volume = +e.target.value; if (state.gainNode) state
-          .gainNode.gain.value = state.volume; };
-      document.getElementById('speedSelect').onchange = e => { state.playbackRate = +e.target.value; if (state.isPlaying) {
-          const t = state.currentTime;
-          stopAudio();
-          playFrom(t);
-        } };
-
-      // Edit buttons
-      document.getElementById('selectAllBtn').onclick = () => { const buf = getActiveBuffer(); if (buf) { state.selStart =
-            0;
-          state.selEnd = buf.duration;
-          drawSelection();
-          updateSelInfo(); } };
-      document.getElementById('clearSelBtn').onclick = () => { state.selStart = null;
-        state.selEnd = null;
-        drawSelection();
-        updateSelInfo(); };
-      document.getElementById('cropBtn').onclick = cropSelection;
-      document.getElementById('deleteSelBtn').onclick = deleteSelection;
-
-      // Transcript
-      document.getElementById('transcribeBtn').onclick = transcribeActive;
-      document.getElementById('applyTranscriptEditsBtn').onclick = applyTranscriptEdits;
-      document.getElementById('copyTranscriptBtn').onclick = () => { navigator.clipboard.writeText(document.getElementById(
-          'transcriptEditor').innerText);
-        toast('Copied!', 'success'); };
-
-      // AI
-      const aiInput = document.getElementById('aiInput');
-      aiInput.oninput = () => { aiInput.style.height = 'auto';
-        aiInput.style.height = Math.min(aiInput.scrollHeight, 100) + 'px'; };
-      aiInput.onkeydown = e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault();
-          sendAiPrompt(); } };
-      document.getElementById('aiSendBtn').onclick = sendAiPrompt;
-
-      // Splice
-      document.getElementById('crossfadeSlider').oninput = e => { state.crossfadeDur = +e.target.value;
-        document.getElementById('crossfadeVal').textContent = e.target.value + 's'; };
-      document.getElementById('clearTimelineBtn').onclick = () => { state.spliceTimeline = [];
-        renderSpliceTimeline(); };
-      document.getElementById('renderSpliceBtn').onclick = previewSplice;
-      document.getElementById('exportSpliceBtn').onclick = () => exportSplice();
-
-      // Enhance
-      document.getElementById('applyEnhanceBtn').onclick = () => { applyEQ();
-        toast('Enhancement applied ✓', 'success'); };
-      document.getElementById('resetEnhanceBtn').onclick = resetEnhance;
-      document.getElementById('exportBtn').onclick = exportActive;
-
-      // Canvas resize
-      resizeCanvas();
-      window.onresize = resizeCanvas;
-    }
-
-    // ─────────────────────────────────────────────
-    // AUDIO CONTEXT
-    // ─────────────────────────────────────────────
-    function getCtx() {
-      if (!state.audioCtx) {
-        state.audioCtx = new(window.AudioContext || window.webkitAudioContext)();
-        buildChain();
-      }
-      return state.audioCtx;
-    }
-
-    function buildChain() {
-      const ctx = state.audioCtx;
-      state.gainNode = ctx.createGain();
-      state.filterLow = ctx.createBiquadFilter();
-      state.filterLow.type = 'highpass';
-      state.filterLow.frequency.value = 80;
-      state.filterPres = ctx.createBiquadFilter();
-      state.filterPres.type = 'peaking';
-      state.filterPres.frequency.value = 3000;
-      state.filterPres.Q.value = 1;
-      state.filterPres.gain.value = 3;
-      state.filterHigh = ctx.createBiquadFilter();
-      state.filterHigh.type = 'highshelf';
-      state.filterHigh.frequency.value = 10000;
-      state.filterHigh.gain.value = 0;
-      state.compressor = ctx.createDynamicsCompressor();
-      state.compressor.ratio.value = 2;
-      state.masterGain = ctx.createGain();
-      state.masterGain.gain.value = 1;
-      state.gainNode.connect(state.filterLow);
-      state.filterLow.connect(state.filterPres);
-      state.filterPres.connect(state.filterHigh);
-      state.filterHigh.connect(state.compressor);
-      state.compressor.connect(state.masterGain);
-      state.masterGain.connect(ctx.destination);
-    }
-
-    function applyEQ() {
-      if (!state.audioCtx) return;
-      state.filterLow.frequency.value = +document.getElementById('lowCutSlider').value;
-      state.filterPres.gain.value = +document.getElementById('presenceSlider').value;
-      state.filterHigh.gain.value = +document.getElementById('highShelfSlider').value;
-      state.compressor.ratio.value = +document.getElementById('compSlider').value;
-      state.masterGain.gain.value = Math.pow(10, +document.getElementById('gainSlider').value / 20);
-    }
-
-    function resetEnhance() {
-      document.getElementById('lowCutSlider').value = 80;
-      document.getElementById('lowCutVal').textContent = '80 Hz';
-      document.getElementById('presenceSlider').value = 3;
-      document.getElementById('presenceVal').textContent = '+3 dB';
-      document.getElementById('highShelfSlider').value = 0;
-      document.getElementById('highShelfVal').textContent = '0 dB';
-      document.getElementById('compSlider').value = 2;
-      document.getElementById('compVal').textContent = '2:1';
-      document.getElementById('gainSlider').value = 0;
-      document.getElementById('gainVal').textContent = '0 dB';
-      applyEQ();
-    }
-
-    const PRESETS = {
-      clean: { lowCut: 80, presence: 3, highShelf: 0, comp: 2, gain: 0 },
-      warm: { lowCut: 50, presence: -1, highShelf: -3, comp: 3, gain: 1 },
-      broadcast: { lowCut: 100, presence: 6, highShelf: 2, comp: 8, gain: 2 },
-      podcast: { lowCut: 80, presence: 2, highShelf: 1, comp: 4, gain: 0 },
-    };
-
-    function applyPreset(el, name) {
-      document.querySelectorAll('.enhance-card').forEach(x => x.classList.remove('active'));
-      el.classList.add('active');
-      const p = PRESETS[name];
-      document.getElementById('lowCutSlider').value = p.lowCut;
-      document.getElementById('lowCutVal').textContent = p.lowCut + ' Hz';
-      document.getElementById('presenceSlider').value = p.presence;
-      document.getElementById('presenceVal').textContent = (p.presence > 0 ? '+' : '') + p.presence + ' dB';
-      document.getElementById('highShelfSlider').value = p.highShelf;
-      document.getElementById('highShelfVal').textContent = (p.highShelf > 0 ? '+' : '') + p.highShelf + ' dB';
-      document.getElementById('compSlider').value = p.comp;
-      document.getElementById('compVal').textContent = p.comp + ':1';
-      document.getElementById('gainSlider').value = p.gain;
-      document.getElementById('gainVal').textContent = (p.gain > 0 ? '+' : '') + p.gain + ' dB';
-      applyEQ();
-      state.preset = name;
-    }
-
-    // ─────────────────────────────────────────────
-    // FILE LOADING
-    // ─────────────────────────────────────────────
-    async function loadFiles(files) {
-      setStatus('processing', 'Loading...');
-      for (const file of files) {
-        if (!file.type.startsWith('audio/')) { toast(`${file.name} is not audio`, 'error'); continue; }
-        try {
-          const ctx = getCtx();
-          const arrayBuffer = await file.arrayBuffer();
-          const audioBuffer = await ctx.decodeAudioData(arrayBuffer);
-          const clip = { id: Date.now() + '_' + Math.random().toString(36).slice(2), name: file.name, file,
-            audioBuffer, duration: audioBuffer.duration };
-          state.clips.push(clip);
-          toast(`Loaded: ${file.name}`, 'success');
-        } catch (e) { toast(`Failed to load ${file.name}`, 'error'); }
-      }
-      renderClipList();
-      setStatus('ready', 'Ready');
-      if (state.clips.length > 0 && !state.activeClipId) activateClip(state.clips[0].id);
-    }
-
-    function renderClipList() {
-      const el = document.getElementById('clipList');
-      if (state.clips.length === 0) {
-        el.innerHTML =
-          '<div style="text-align:center;padding:20px;color:var(--text-muted);font-size:12px">No clips yet.<br>Upload audio to start.</div>';
-        return;
-      }
-      el.innerHTML = '';
-      state.clips.forEach(clip => {
-        const item = document.createElement('div');
-        item.className = 'clip-item' + (clip.id === state.activeClipId ? ' active' : '');
-        item.innerHTML = `
-          <div class="clip-icon">🎵</div>
-          <div class="clip-info"><div class="clip-name">${clip.name}</div><div class="clip-dur">${formatTime(clip.duration)}</div></div>
-          <button class="clip-delete" data-id="${clip.id}">✕</button>
-        `;
-        item.onclick = e => { if (!e.target.dataset.id) { activateClip(clip.id);
-            addToTimeline(clip.id); } };
-        item.querySelector('.clip-delete').onclick = e => { e.stopPropagation();
-          removeClip(clip.id); };
-        el.appendChild(item);
-      });
-      document.getElementById('statusClips').textContent = state.clips.length + ' clip' + (state.clips.length !== 1 ?
-        's' : '');
-    }
-
-    function activateClip(id) {
-      const clip = state.clips.find(c => c.id === id);
-      if (!clip) return;
-      stopAudio();
-      state.activeClipId = id;
-      state.pausedAt = 0;
-      state.currentTime = 0;
-      state.selStart = null;
-      state.selEnd = null;
-      document.getElementById('clipLabel').textContent = clip.name;
-      document.getElementById('statusDuration').textContent = formatTime(clip.duration);
-      document.getElementById('statusSampleRate').textContent = clip.audioBuffer.sampleRate + ' Hz';
-      renderClipList();
-      drawWaveform(clip.audioBuffer);
-      drawSelection();
-      updateSelInfo();
-      document.getElementById('cropBtn').disabled = true;
-      document.getElementById('deleteSelBtn').disabled = true;
-    }
-
-    function removeClip(id) {
-      state.clips = state.clips.filter(c => c.id !== id);
-      state.spliceTimeline = state.spliceTimeline.filter(x => x !== id);
-      if (state.activeClipId === id) {
-        state.activeClipId = state.clips.length > 0 ? state.clips[0].id : null;
-        stopAudio();
-        if (state.activeClipId) activateClip(state.activeClipId);
-        else clearWaveform();
-      }
-      renderClipList();
-      renderSpliceTimeline();
-      toast('Clip removed');
-    }
-
-    function getActiveClip() { return state.clips.find(c => c.id === state.activeClipId) || null; }
-
-    function getActiveBuffer() { const c = getActiveClip(); return c ? c.audioBuffer : null; }
-
-    // ─────────────────────────────────────────────
-    // WAVEFORM
-    // ─────────────────────────────────────────────
-    function resizeCanvas() {
-      const canvas = document.getElementById('waveformCanvas');
-      const wrap = document.getElementById('waveformWrap');
-      canvas.width = wrap.offsetWidth * window.devicePixelRatio;
-      canvas.height = wrap.offsetHeight * window.devicePixelRatio;
-      canvas.style.width = wrap.offsetWidth + 'px';
-      canvas.style.height = wrap.offsetHeight + 'px';
-      const buf = getActiveBuffer();
-      if (buf) drawWaveform(buf);
-    }
-
-    function drawWaveform(buf) {
-      const canvas = document.getElementById('waveformCanvas');
-      const ctx = canvas.getContext('2d');
-      const W = canvas.width,
-        H = canvas.height;
-      ctx.clearRect(0, 0, W, H);
-      const data = buf.getChannelData(0);
-      const step = Math.ceil(data.length / (W / window.devicePixelRatio));
-      const barW = 2,
-        gap = 1;
-      const num = Math.floor(W / (barW + gap));
-      const sampPerBar = Math.floor(data.length / num);
-      const played = state.currentTime / buf.duration;
-      for (let i = 0; i < num; i++) {
-        let max = 0;
-        for (let j = 0; j < sampPerBar; j++) {
-          const v = Math.abs(data[i * sampPerBar + j] || 0);
-          if (v > max) max = v;
-        }
-        const h = Math.max(2, max * H * 0.85);
-        const x = i * (barW + gap);
-        const y = (H - h) / 2;
-        const fraction = i / num;
-        ctx.fillStyle = fraction < played ? '#F59E0B' : '#6C63FF';
-        ctx.globalAlpha = fraction < played ? 0.9 : 0.6;
-        ctx.fillRect(x, y, barW, h);
-      }
-      ctx.globalAlpha = 1;
-    }
-
-    function clearWaveform() {
-      const canvas = document.getElementById('waveformCanvas');
-      const ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
-
-    function updatePlayhead() {
-      const buf = getActiveBuffer();
-      if (!buf) return;
-      const frac = state.currentTime / buf.duration;
-      document.getElementById('playhead').style.left = (frac * 100) + '%';
-      document.getElementById('timeDisplay').textContent = formatTime(state.currentTime) + ' / ' + formatTime(buf.duration);
-      drawWaveform(buf);
-    }
-
-    // ─────────────────────────────────────────────
-    // SELECTION
-    // ─────────────────────────────────────────────
-    function updateSelection(e) {
-      const buf = getActiveBuffer();
-      if (!buf) return;
-      const wrap = document.getElementById('waveformWrap');
-      const x = Math.max(0, Math.min(1, e.offsetX / wrap.offsetWidth));
-      const xStart = state.dragStartX;
-      const t = x * buf.duration;
-      const tStart = xStart * buf.duration;
-      state.selStart = Math.min(t, tStart);
-      state.selEnd = Math.max(t, tStart);
-      drawSelection();
-      updateSelInfo();
-    }
-
-    function finalizeSelection() {
-      if (state.selStart !== null && state.selEnd !== null && Math.abs(state.selEnd - state.selStart) > 0.01) {
-        document.getElementById('cropBtn').disabled = false;
-        document.getElementById('deleteSelBtn').disabled = false;
-      } else {
-        state.selStart = null;
-        state.selEnd = null;
-        document.getElementById('cropBtn').disabled = true;
-        document.getElementById('deleteSelBtn').disabled = true;
-        drawSelection();
-      }
-    }
-
-    function drawSelection() {
-      const overlay = document.getElementById('selectionOverlay');
-      const buf = getActiveBuffer();
-      if (!buf || state.selStart === null) { overlay.style.display = 'none'; return; }
-      const startFrac = state.selStart / buf.duration;
-      const endFrac = state.selEnd / buf.duration;
-      overlay.style.display = 'block';
-      overlay.style.left = (startFrac * 100) + '%';
-      overlay.style.width = ((endFrac - startFrac) * 100) + '%';
-    }
-
-    function updateSelInfo() {
-      const el = document.getElementById('selectionInfo');
-      if (state.selStart === null) { el.innerHTML = 'No selection'; return; }
-      const dur = state.selEnd - state.selStart;
-      el.innerHTML = `Selection: <span>${formatTime(state.selStart)} → ${formatTime(state.selEnd)}</span> (${dur.toFixed(2)}s)`;
-    }
-
-    // ─────────────────────────────────────────────
-    // PLAYBACK
-    // ─────────────────────────────────────────────
-    function togglePlay() {
-      if (state.isPlaying) pauseAudio();
-      else playFrom(state.pausedAt);
-    }
-
-    function playFrom(offset) {
-      const buf = getActiveBuffer();
-      if (!buf) { toast('No clip loaded', 'error'); return; }
-      const ctx = getCtx();
-      if (ctx.state === 'suspended') ctx.resume();
-      stopAudio(true);
-      const src = ctx.createBufferSource();
-      src.buffer = buf;
-      src.playbackRate.value = state.playbackRate;
-      src.connect(state.gainNode);
-      state.gainNode.gain.value = state.volume;
-      src.start(0, offset);
-      src.onended = () => { if (state.isPlaying) { state.isPlaying = false;
-          state.pausedAt = 0;
-          document.getElementById('playPauseBtn').textContent = '▶';
-          cancelAnimationFrame(state.animFrame); } };
-      state.sourceNode = src;
-      state.startedAt = ctx.currentTime - offset;
-      state.isPlaying = true;
-      document.getElementById('playPauseBtn').textContent = '⏸';
-      animatePlayhead();
-    }
-
-    function pauseAudio() {
-      if (!state.isPlaying) return;
-      state.pausedAt = state.currentTime;
-      stopAudio(true);
-      state.isPlaying = false;
-      document.getElementById('playPauseBtn').textContent = '▶';
-    }
-
-    function stopAudio(silent) {
-      if (state.sourceNode) { try { state.sourceNode.stop(); } catch (e) {} state.sourceNode = null; }
-      cancelAnimationFrame(state.animFrame);
-      if (!silent) { state.isPlaying = false;
-        state.pausedAt = 0;
-        document.getElementById('playPauseBtn').textContent = '▶'; }
-    }
-
-    function seekTo(frac) {
-      const buf = getActiveBuffer();
-      if (!buf) return;
-      const t = frac * buf.duration;
-      seekAbsolute(t);
-    }
-
-    function seekAbsolute(t) {
-      const buf = getActiveBuffer();
-      if (!buf) return;
-      t = Math.max(0, Math.min(buf.duration, t));
-      state.currentTime = t;
-      state.pausedAt = t;
-      if (state.isPlaying) playFrom(t);
-      else updatePlayhead();
-    }
-
-    function animatePlayhead() {
-      const ctx = state.audioCtx;
-      state.currentTime = (ctx.currentTime - state.startedAt) * state.playbackRate;
-      const buf = getActiveBuffer();
-      if (buf && state.currentTime >= buf.duration) {
-        state.currentTime = buf.duration;
-        updatePlayhead();
-        state.isPlaying = false;
-        state.pausedAt = 0;
-        document.getElementById('playPauseBtn').textContent = '▶';
-        return;
-      }
-      updatePlayhead();
-      highlightCurrentWord();
-      state.animFrame = requestAnimationFrame(animatePlayhead);
-    }
-
-    // ─────────────────────────────────────────────
-    // EDITING — CROP / DELETE SELECTION
-    // ─────────────────────────────────────────────
-    function cropSelection() {
-      const clip = getActiveClip();
-      if (!clip || state.selStart === null) return;
-      const buf = clip.audioBuffer;
-      const ctx = getCtx();
-      const s = Math.floor(state.selStart * buf.sampleRate);
-      const e = Math.floor(state.selEnd * buf.sampleRate);
-      const len = e - s;
-      const newBuf = ctx.createBuffer(buf.numberOfChannels, len, buf.sampleRate);
-      for (let ch = 0; ch < buf.numberOfChannels; ch++) {
-        newBuf.getChannelData(ch).set(buf.getChannelData(ch).subarray(s, e));
-      }
-      clip.audioBuffer = newBuf;
-      clip.duration = newBuf.duration;
-      state.selStart = null;
-      state.selEnd = null;
-      activateClip(clip.id);
-      renderClipList();
-      toast('Cropped to selection ✓', 'success');
-    }
-
-    function deleteSelection() {
-      const clip = getActiveClip();
-      if (!clip || state.selStart === null) return;
-      const buf = clip.audioBuffer;
-      const ctx = getCtx();
-      const s = Math.floor(state.selStart * buf.sampleRate);
-      const e = Math.floor(state.selEnd * buf.sampleRate);
-      const newLen = buf.length - (e - s);
-      const newBuf = ctx.createBuffer(buf.numberOfChannels, newLen, buf.sampleRate);
-      for (let ch = 0; ch < buf.numberOfChannels; ch++) {
-        const src = buf.getChannelData(ch);
-        const dst = newBuf.getChannelData(ch);
-        dst.set(src.subarray(0, s), 0);
-        dst.set(src.subarray(e), s);
-      }
-      clip.audioBuffer = newBuf;
-      clip.duration = newBuf.duration;
-      state.selStart = null;
-      state.selEnd = null;
-      activateClip(clip.id);
-      renderClipList();
-      toast('Selection deleted ✓', 'success');
-    }
-
-    // ─────────────────────────────────────────────
-    // SPLICE & BLEND
-    // ─────────────────────────────────────────────
-    function addToTimeline(clipId) {
-      if (!state.spliceTimeline.includes(clipId)) {
-        state.spliceTimeline.push(clipId);
-        renderSpliceTimeline();
-      }
-    }
-
-    const COLORS = ['#6C63FF', '#F59E0B', '#10B981', '#EF4444', '#8B5CF6', '#EC4899', '#06B6D4'];
-
-    function renderSpliceTimeline() {
-      const el = document.getElementById('spliceTimeline');
-      if (state.spliceTimeline.length === 0) {
-        el.innerHTML =
-          '<div style="color:var(--text-muted);font-size:12px;padding:20px;text-align:center;background:var(--surface2);border:1.5px dashed var(--border);border-radius:var(--radius)">Add clips from the sidebar to build your splice timeline</div>';
-        return;
-      }
-      const totalDur = state.spliceTimeline.reduce((sum, id) => { const c = state.clips.find(x => x.id === id); return sum + (
-          c ? c.duration : 0); }, 0);
-      let html =
-        `<div style="font-size:10px;color:var(--text-muted);font-family:monospace;margin-bottom:6px">Total: ${formatTime(totalDur)} · ${state.spliceTimeline.length} clips</div>`;
-      html += '<div class="splice-track" style="position:relative;height:56px;">';
-      let offset = 0;
-      state.spliceTimeline.forEach((id, i) => {
-        const clip = state.clips.find(c => c.id === id);
-        if (!clip) return;
-        const pct = (clip.duration / totalDur) * 100;
-        const color = COLORS[i % COLORS.length];
-        html +=
-          `<div class="splice-segment" style="left:${(offset/totalDur)*100}%;width:${pct}%;background:${color}22;color:${color}">${clip.name.replace(/\.[^.]+$/,'')}</div>`;
-        offset += clip.duration;
-      });
-      html += '</div>';
-      html += '<div style="display:flex;flex-direction:column;gap:6px;margin-top:8px">';
-      state.spliceTimeline.forEach((id, i) => {
-        const clip = state.clips.find(c => c.id === id);
-        if (!clip) return;
-        const color = COLORS[i % COLORS.length];
-        html +=
-          `<div style="display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--surface2);border-radius:6px;border:1px solid var(--border)">
-            <div style="width:10px;height:10px;border-radius:2px;background:${color};flex-shrink:0"></div>
-            <span style="font-size:12px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${clip.name}</span>
-            <span style="font-size:10px;color:var(--text-muted);font-family:monospace">${formatTime(clip.duration)}</span>
-            <button style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:14px" onclick="removeSpliceItem(${i})" title="Remove">✕</button>
-          </div>`;
-      });
-      html += '</div>';
-      el.innerHTML = html;
-    }
-
-    function removeSpliceItem(i) { state.spliceTimeline.splice(i, 1);
-      renderSpliceTimeline(); }
-
-    function setBlend(mode) {
-      state.blendMode = mode;
-      ['linear', 'equal-power', 'fade'].forEach(m => {
-        const el = document.getElementById('blend' + m.charAt(0).toUpperCase() + m.slice(1).replace('-', ''));
-        if (el) { el.style.background = m === mode ? 'var(--accent)' : '';
-          el.style.color = m === mode ? '#fff' : 'var(--accent)'; }
-      });
-      document.getElementById('blendLinear').style.background = mode === 'linear' ? 'var(--accent)' : '';
-      document.getElementById('blendLinear').style.color = mode === 'linear' ? '#fff' : 'var(--accent)';
-      document.getElementById('blendEqualPower').style.background = mode === 'equal-power' ? 'var(--accent)' : '';
-      document.getElementById('blendEqualPower').style.color = mode === 'equal-power' ? '#fff' : 'var(--accent)';
-      document.getElementById('blendFade').style.background = mode === 'fade' ? 'var(--accent)' : '';
-      document.getElementById('blendFade').style.color = mode === 'fade' ? '#fff' : 'var(--accent)';
-    }
-
-    async function mergeSpliceBuffers() {
-      const ctx = getCtx();
-      const clips = state.spliceTimeline.map(id => state.clips.find(c => c.id === id)).filter(Boolean);
-      if (clips.length === 0) { toast('No clips in timeline', 'error'); return null; }
-      const cf = state.crossfadeDur;
-      const totalDur = clips.reduce((s, c) => s + c.duration, 0) - cf * (clips.length - 1);
-      const sampleRate = clips[0].audioBuffer.sampleRate;
-      const numChannels = Math.max(...clips.map(c => c.audioBuffer.numberOfChannels));
-      const totalSamples = Math.ceil(totalDur * sampleRate);
-      const out = ctx.createBuffer(numChannels, Math.max(totalSamples, 1), sampleRate);
-      let writePos = 0;
-      clips.forEach((clip, i) => {
-        const buf = clip.audioBuffer;
-        const cfSamples = Math.floor(cf * sampleRate);
-        for (let ch = 0; ch < numChannels; ch++) {
-          const dst = out.getChannelData(ch);
-          const src = buf.getChannelData(Math.min(ch, buf.numberOfChannels - 1));
-          for (let s = 0; s < buf.length; s++) {
-            const pos = writePos + s;
-            if (pos >= totalSamples) break;
-            let gain = 1;
-            if (i < clips.length - 1 && s >= buf.length - cfSamples && cfSamples > 0) {
-              const t = (s - (buf.length - cfSamples)) / cfSamples;
-              gain = state.blendMode === 'equal-power' ? Math.cos(t * Math.PI / 2) : (1 - t);
-            }
-            if (i > 0 && s < cfSamples && cfSamples > 0) {
-              const t = s / cfSamples;
-              const fadeIn = state.blendMode === 'equal-power' ? Math.sin(t * Math.PI / 2) : t;
-              dst[pos] = (dst[pos] || 0) + src[s] * fadeIn;
-              continue;
-            }
-            dst[pos] = (dst[pos] || 0) + src[s] * gain;
-          }
-        }
-        writePos += buf.length - (i < clips.length - 1 ? cfSamples : 0);
-      });
-      return out;
-    }
-
-    async function previewSplice() {
-      setStatus('processing', 'Merging...');
-      const merged = await mergeSpliceBuffers();
-      if (!merged) { setStatus('ready', 'Ready'); return; }
-      const tempId = 'splice_preview';
-      const existing = state.clips.findIndex(c => c.id === tempId);
-      const clip = { id: tempId, name: 'Splice Preview', file: null, audioBuffer: merged, duration: merged.duration };
-      if (existing >= 0) state.clips[existing] = clip;
-      else state.clips.push(clip);
-      activateClip(tempId);
-      renderClipList();
-      playFrom(0);
-      setStatus('ready', 'Ready');
-      toast('Splice preview ready ▶', 'success');
-    }
-
-    async function exportSplice() {
-      setStatus('processing', 'Exporting...');
-      const merged = await mergeSpliceBuffers();
-      if (!merged) { setStatus('ready', 'Ready'); return; }
-      await exportBuffer(merged, 'voicelab-splice.wav');
-      setStatus('ready', 'Ready');
-    }
-
-    // ─────────────────────────────────────────────
-    // EXPORT
-    // ─────────────────────────────────────────────
-    async function exportActive() {
-      const clip = getActiveClip();
-      if (!clip) { toast('No clip loaded', 'error'); return; }
-      setStatus('processing', 'Exporting...');
-      await exportBuffer(clip.audioBuffer, clip.name.replace(/\.[^.]+$/, '') + '_edited.wav');
-      setStatus('ready', 'Ready');
-    }
-
-    async function exportBuffer(buf, filename) {
-      const wav = bufferToWav(buf);
-      const blob = new Blob([wav], { type: 'audio/wav' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      a.click();
-      URL.revokeObjectURL(url);
-      toast('Exported: ' + filename, 'success');
-    }
-
-    function bufferToWav(buffer) {
-      const numChannels = buffer.numberOfChannels;
-      const sampleRate = buffer.sampleRate;
-      const length = buffer.length;
-      const data = new Float32Array(length * numChannels);
-      for (let ch = 0; ch < numChannels; ch++) {
-        const src = buffer.getChannelData(ch);
-        for (let i = 0; i < length; i++) data[i * numChannels + ch] = src[i];
-      }
-      const pcm = new Int16Array(data.length);
-      for (let i = 0; i < data.length; i++) pcm[i] = Math.max(-32768, Math.min(32767, data[i] * 32768));
-      const header = new ArrayBuffer(44);
-      const view = new DataView(header);
-      const writeStr = (o, s) => { for (let i = 0; i < s.length; i++) view.setUint8(o + i, s.charCodeAt(i)); };
-      writeStr(0, 'RIFF');
-      view.setUint32(4, 36 + pcm.byteLength, true);
-      writeStr(8, 'WAVE');
-      writeStr(12, 'fmt ');
-      view.setUint32(16, 16, true);
-      view.setUint16(20, 1, true);
-      view.setUint16(22, numChannels, true);
-      view.setUint32(24, sampleRate, true);
-      view.setUint32(28, sampleRate * numChannels * 2, true);
-      view.setUint16(32, numChannels * 2, true);
-      view.setUint16(34, 16, true);
-      writeStr(36, 'data');
-      view.setUint32(40, pcm.byteLength, true);
-      return new Uint8Array([...new Uint8Array(header), ...new Uint8Array(pcm.buffer)]);
-    }
-
-    // ─────────────────────────────────────────────
-    // TRANSCRIPT
-    // ─────────────────────────────────────────────
-    async function transcribeActive() {
-      const clip = getActiveClip();
-      if (!clip) { toast('No clip loaded', 'error'); return; }
-      if (!state.apiKey) { toast('Set your API key first', 'error');
-        document.getElementById('apiModal').style.display = 'flex'; return; }
-      setStatus('processing', 'Transcribing...');
-      toast('Transcribing via Claude AI...');
-      try {
-        const response = await callClaude(
-          `You are an audio transcription assistant. The user has loaded an audio clip named "${clip.name}" with duration ${clip.duration.toFixed(2)} seconds. Generate a REALISTIC DEMO transcript for a voice clip of this duration. Format as JSON array only, no markdown: [{"word":"Hello","start":0.0,"end":0.3},{"word":"this","start":0.35,"end":0.5},...] Make it a natural spoken sentence that fits the duration. Return ONLY the JSON array.`
-          );
-        let words;
-        try {
-          const clean = response.replace(/```json|```/g, '').trim();
-          words = JSON.parse(clean);
-        } catch (e) {
-          words = generateFallbackTranscript(clip.duration);
-        }
-        state.transcript = words;
-        renderTranscript();
-        document.getElementById('transcriptBadge').style.display = '';
-        document.querySelectorAll('.tab').forEach(t => { if (t.dataset.tab === 'transcript') t.click(); });
-        setStatus('ready', 'Transcribed');
-        toast('Transcript ready ✓', 'success');
-      } catch (e) {
-        setStatus('ready', 'Ready');
-        toast('Transcription failed: ' + e.message, 'error');
-      }
-    }
-
-    function generateFallbackTranscript(duration) {
-      const sample =
-        'This is a voice clip that has been loaded into VoiceLab for editing. You can select regions on the waveform to crop or delete them, or use the AI assistant to make changes.';
-      const words = sample.split(' ');
-      const timePerWord = duration / words.length;
-      return words.map((w, i) => ({ word: w, start: i * timePerWord, end: (i + 1) * timePerWord - 0.05 }));
-    }
-
-    function renderTranscript() {
-      const el = document.getElementById('transcriptEditor');
-      el.innerHTML = '';
-      state.transcript.forEach((item, i) => {
-        const span = document.createElement('span');
-        span.className = 'word-token';
-        span.dataset.idx = i;
-        span.dataset.start = item.start;
-        span.dataset.end = item.end;
-        span.textContent = item.word;
-        span.onclick = () => seekAbsolute(item.start);
-        el.appendChild(span);
-        el.appendChild(document.createTextNode(' '));
-      });
-    }
-
-    function highlightCurrentWord() {
-      if (state.transcript.length === 0) return;
-      const t = state.currentTime;
-      document.querySelectorAll('.word-token').forEach(span => {
-        const s = +span.dataset.start,
-          e = +span.dataset.end;
-        span.classList.toggle('playing', t >= s && t <= e);
-      });
-    }
-
-    async function applyTranscriptEdits() {
-      const el = document.getElementById('transcriptEditor');
-      const currentText = el.innerText.trim();
-      const originalWords = state.transcript.map(t => t.word).join(' ');
-      if (currentText === originalWords) { toast('No edits detected', ''); return; }
-      const currentArr = currentText.split(/\s+/).filter(Boolean);
-      const clip = getActiveClip();
-      if (!clip) return;
-      const origWords = state.transcript.map(t => t.word);
-      let oi = 0,
-        ci = 0;
-      const keep = [];
-      while (oi < origWords.length && ci < currentArr.length) {
-        if (origWords[oi].replace(/[^a-zA-Z0-9]/g, '').toLowerCase() === currentArr[ci].replace(/[^a-zA-Z0-9]/g, '')
-          .toLowerCase()) { keep.push(oi);
-          oi++;
-          ci++; } else { oi++; }
-      }
-      if (keep.length === origWords.length) { toast('No words removed', ''); return; }
-      setStatus('processing', 'Applying edits...');
-      const ctx = getCtx();
-      const buf = clip.audioBuffer;
-      const regions = [];
-      let runStart = null,
-        runEnd = null;
-      keep.forEach(i => {
-        const w = state.transcript[i];
-        if (runStart === null) { runStart = w.start;
-          runEnd = w.end; } else if (w.start <= runEnd + 0.1) { runEnd = w.end; } else { regions.push([runStart,
-            runEnd
-          ]);
-          runStart = w.start;
-          runEnd = w.end; }
-      });
-      if (runStart !== null) regions.push([runStart, runEnd]);
-      const totalSamples = regions.reduce((s, [a, b]) => s + Math.ceil((b - a) * buf.sampleRate), 0);
-      const newBuf = ctx.createBuffer(buf.numberOfChannels, Math.max(totalSamples, 1), buf.sampleRate);
-      let writePos = 0;
-      regions.forEach(([a, b]) => {
-        const s = Math.floor(a * buf.sampleRate),
-          e = Math.ceil(b * buf.sampleRate);
-        for (let ch = 0; ch < buf.numberOfChannels; ch++) {
-          newBuf.getChannelData(ch).set(buf.getChannelData(ch).subarray(s, e), writePos);
-        }
-        writePos += e - s;
-      });
-      clip.audioBuffer = newBuf;
-      clip.duration = newBuf.duration;
-      state.transcript = keep.map(i => state.transcript[i]);
-      let offset = 0;
-      state.transcript.forEach((w, i) => {
-        const dur = w.end - w.start;
-        state.transcript[i] = { word: w.word, start: offset, end: offset + dur };
-        offset += dur;
-      });
-      activateClip(clip.id);
-      renderClipList();
-      renderTranscript();
-      setStatus('ready', 'Ready');
-      toast(`Applied: ${origWords.length - keep.length} words removed ✓`, 'success');
-    }
-
-    // ─────────────────────────────────────────────
-    // AI CHAT
-    // ─────────────────────────────────────────────
-    function fillPrompt(text) {
-      const input = document.getElementById('aiInput');
-      input.value = text;
-      input.style.height = 'auto';
-      input.style.height = Math.min(input.scrollHeight, 100) + 'px';
-      input.focus();
-    }
-
-    async function sendAiPrompt() {
-      const input = document.getElementById('aiInput');
-      const prompt = input.value.trim();
-      if (!prompt) return;
-      if (!state.apiKey) { toast('Set your API key first', 'error');
-        document.getElementById('apiModal').style.display = 'flex'; return; }
-      input.value = '';
-      input.style.height = 'auto';
-      addAiMsg('user', prompt);
-      const thinking = addAiMsg('assistant', '<div class="loading-spinner" style="margin:4px 0"></div>');
-      const clip = getActiveClip();
-      const contextStr = clip ?
-        `Active clip: "${clip.name}" (${formatTime(clip.duration)}). Total clips: ${state.clips.length}. Clips: ${state.clips.map(c=>`"${c.name}" (${formatTime(c.duration)})`).join(', ')}. Selection: ${state.selStart !== null ? formatTime(state.selStart)+' to '+formatTime(state.selEnd) : 'none'}. Transcript words: ${state.transcript.length}.` :
-        `No clip loaded. Total clips: ${state.clips.length}.`;
-      const systemPrompt =
-        `You are VoiceLab AI, an expert audio editing assistant. Current state: ${contextStr}. You can perform actions by responding with a JSON command block wrapped in <ACTION> tags after your explanation. Actions: {"action":"trim_start","seconds":N}, {"action":"trim_end","seconds":N}, {"action":"extract","start":N,"end":N}, {"action":"delete_range","start":N,"end":N}, {"action":"normalize"}, {"action":"reverse"}, {"action":"transcribe"}, {"action":"splice_add","clip_index":N}, {"action":"preview_splice"}, {"action":"select_range","start":N,"end":N}. Always explain first in plain English, then include the action.`;
-      try {
-        const reply = await callClaude(prompt, systemPrompt);
-        thinking.remove();
-        const actionMatch = reply.match(/<ACTION>([\s\S]*?)<\/ACTION>/);
-        const textPart = reply.replace(/<ACTION>[\s\S]*?<\/ACTION>/g, '').trim();
-        const msgEl = addAiMsg('assistant', textPart);
-        if (actionMatch) {
-          try {
-            const cmd = JSON.parse(actionMatch[1]);
-            const chipWrap = document.createElement('div');
-            chipWrap.className = 'ai-action-chips';
-            chipWrap.style.marginTop = '10px';
-            const chip = document.createElement('div');
-            chip.className = 'chip';
-            chip.textContent = '▶ Apply: ' + cmd.action.replace(/_/g, ' ');
-            chip.onclick = () => { executeAction(cmd);
-              chip.textContent = '✓ Done';
-              chip.style.background = 'var(--green)';
-              chip.style.borderColor = 'var(--green)';
-              chip.style.color = '#fff'; };
-            chipWrap.appendChild(chip);
-            msgEl.querySelector('.ai-bubble').appendChild(chipWrap);
-          } catch (e) {}
-        }
-      } catch (e) {
-        thinking.remove();
-        addAiMsg('assistant', 'Error: ' + e.message + '. Check your API key.');
-      }
-    }
-
-    function addAiMsg(role, content) {
-      const list = document.getElementById('aiMsgList');
-      const msg = document.createElement('div');
-      msg.className = 'ai-msg';
-      msg.innerHTML =
-        `<div class="ai-avatar ${role==='user'?'user':''}">${role==='user'?'U':'✦'}</div><div class="ai-bubble ${role==='user'?'user':''}">${content}</div>`;
-      list.appendChild(msg);
-      const panel = document.getElementById('aiMessages');
-      panel.scrollTop = panel.scrollHeight;
-      return msg;
-    }
-
-    async function callClaude(userMsg, systemMsg) {
-      const body = { model: 'claude-sonnet-4-6', max_tokens: 1000, messages: [{ role: 'user', content: userMsg }] };
-      if (systemMsg) body.system = systemMsg;
-      const resp = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-api-key': state.apiKey, 'anthropic-version': '2023-06-01',
-          'anthropic-dangerous-direct-browser-access': 'true' },
-        body: JSON.stringify(body)
-      });
-      if (!resp.ok) { const e = await resp.json(); throw new Error(e.error?.message || resp.statusText); }
-      const data = await resp.json();
-      return data.content.map(b => b.type === 'text' ? b.text : '').join('');
-    }
-
-    function executeAction(cmd) {
-      const clip = getActiveClip();
-      switch (cmd.action) {
-        case 'trim_start':
-          if (!clip) { toast('No clip', 'error'); return; }
-          state.selStart = 0;
-          state.selEnd = Math.min(cmd.seconds, clip.duration);
-          deleteSelection();
-          break;
-        case 'trim_end':
-          if (!clip) { toast('No clip', 'error'); return; }
-          state.selStart = Math.max(0, clip.duration - cmd.seconds);
-          state.selEnd = clip.duration;
-          deleteSelection();
-          break;
-        case 'extract':
-        case 'delete_range':
-          if (!clip) { toast('No clip', 'error'); return; }
-          state.selStart = cmd.start;
-          state.selEnd = cmd.end;
-          drawSelection();
-          updateSelInfo();
-          if (cmd.action === 'extract') cropSelection();
-          else deleteSelection();
-          break;
-        case 'normalize':
-          if (!clip) return;
-          const buf = clip.audioBuffer;
-          let max = 0;
-          for (let ch = 0; ch < buf.numberOfChannels; ch++) { const d = buf.getChannelData(ch); for (let i = 0; i < d
-              .length; i++) if (Math.abs(d[i]) > max) max = Math.abs(d[i]); }
-          if (max > 0) { const gain = 1 / max * 0.95; for (let ch = 0; ch < buf.numberOfChannels; ch++) { const d = buf
-                .getChannelData(ch); for (let i = 0; i < d.length; i++) d[i] *= gain; }
-            drawWaveform(buf);
-            toast('Normalized ✓', 'success'); }
-          break;
-        case 'reverse':
-          if (!clip) return;
-          const bufR = clip.audioBuffer;
-          for (let ch = 0; ch < bufR.numberOfChannels; ch++) bufR.getChannelData(ch).reverse();
-          drawWaveform(bufR);
-          toast('Reversed ✓', 'success');
-          break;
-        case 'transcribe':
-          transcribeActive();
-          break;
-        case 'splice_add':
-          const c = state.clips[cmd.clip_index];
-          if (c) { addToTimeline(c.id);
-            toast('Added to timeline', 'success');
-            document.querySelectorAll('.tab').forEach(t => { if (t.dataset.tab === 'splice') t.click(); }); }
-          break;
-        case 'preview_splice':
-          previewSplice();
-          break;
-        case 'select_range':
-          if (!clip) return;
-          state.selStart = cmd.start;
-          state.selEnd = cmd.end;
-          drawSelection();
-          updateSelInfo();
-          document.getElementById('cropBtn').disabled = false;
-          document.getElementById('deleteSelBtn').disabled = false;
-          toast(`Selected ${formatTime(cmd.start)} → ${formatTime(cmd.end)}`, 'success');
-          break;
-        default:
-          toast('Action: ' + cmd.action, '');
-      }
-    }
-
-    // ─────────────────────────────────────────────
-    // UTILS
-    // ─────────────────────────────────────────────
-    function formatTime(t) {
-      if (!isFinite(t)) return '0:00.000';
-      const m = Math.floor(t / 60),
-        s = Math.floor(t % 60),
-        ms = Math.floor((t % 1) * 1000);
-      return `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}.${ms.toString().padStart(3,'0')}`;
-    }
-
-    function setStatus(type, text) {
-      const dot = document.getElementById('statusDot');
-      const label = document.getElementById('statusText');
-      dot.className = 'status-dot' + (type === 'processing' ? ' processing' : '');
-      label.textContent = text;
-    }
-
-    function toast(msg, type = '') {
-      const container = document.getElementById('toastContainer');
-      const el = document.createElement('div');
-      el.className = 'toast' + (type ? ' ' + type : '');
-      const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : 'ℹ';
-      el.innerHTML =
-        `<span style="color:${type==='success'?'var(--green)':type==='error'?'var(--red)':'var(--accent)'}">${icon}</span> ${msg}`;
-      container.appendChild(el);
-      setTimeout(() => { el.style.opacity = '0';
-        el.style.transition = 'opacity 0.3s';
-        setTimeout(() => el.remove(), 300); }, 3000);
-    }
-
-    // ─────────────────────────────────────────────
-    // BOOT
-    // ─────────────────────────────────────────────
-    init();
-  </script>
-</body>
-</html>
+            <div
